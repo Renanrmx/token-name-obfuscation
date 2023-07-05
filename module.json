@@ -1,0 +1,44 @@
+{
+  "id": "token-name-obfuscation",
+  "title": "Token Name Obfuscation",
+  "version": "0.0.1",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11.304"
+  },
+  "description": "A quick method to switch the displayed names of tokens between real names and placeholders",
+  "authors": [
+    {
+      "name": "itastelikelove",
+      "discord": "itastelikelove",
+      "flags": {}
+    }
+  ],
+  "url": "https://github.com/itastelikelove/token-name-obfuscation",
+  "packs": [
+    {
+      "label": "TNO Macros (pf2e)",
+      "name": "tno-macros-pf2e",
+      "type": "Macro",
+      "system": "pf2e",
+      "path": "packs/tno-macros-pf2e",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    },
+    {
+      "label": "TNO Macros (dnd5e)",
+      "name": "tno-macros-dnd5e",
+      "type": "Macro",
+      "system": "dnd5e",
+      "path": "packs/tno-macros-dnd5e",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    }
+  ]
+}
