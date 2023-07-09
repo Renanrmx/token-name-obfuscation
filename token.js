@@ -1,3 +1,5 @@
+import Settings from "./settings.js";
+
 let DEBUG = true;
 
 const debugLog = (...args) => {
@@ -56,7 +58,7 @@ export default class ObfuscatorToken {
     }
 
     async _turnOnObfuscation() {
-        let placeholderName = "???";
+        let placeholderName = Settings.placeholderName;
         let update = {_id: this._token.actorId, name: placeholderName}
         await this._token.update(update);
     }
