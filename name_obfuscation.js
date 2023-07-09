@@ -1,4 +1,5 @@
 // import Settings from "./settings.js";
+import Settings from "./settings.js";
 import TokenHUD from "./hud.js";
 import ObfuscatorToken from "./token.js";
 
@@ -34,7 +35,7 @@ class Obfuscator {
         TokenHUD.addButton(
             token,
             hudHtml,
-            Obfuscator.toggleName
+            Obfuscator.toggleName,
         );
     }
 
@@ -75,19 +76,22 @@ class Obfuscator {
 
 Hooks.on("ready", () => {
     Hooks.on("renderTokenHUD", (app, html, data) => {
-        Obfuscator.addObfuscatorButton(app, html, data);
+        if (Settings.allowHUDButton === true) {
+            Obfuscator.addObfuscatorButton(app, html, data);
+        }
     });
 //   Hooks.on("renderControlsReference", (app, html, data) => {
 //     html.find("div").first().append(Settings.helpText);
 //   });
 });
 
-// Hooks.once("init", () => {
+Hooks.once("init", () => {
   // Only load and initialize test suite if we're in a test environment
 //   if (game.world.id.startsWith("torch-test-")) {
 //     Torch.setupQuenchTesting();
 //   }
-//   Settings.register();
-// });
+  Settings.register();
+  console.log("Token Name Obfuscation settings registered");
+});
 
 console.log("Token Name Obfuscation module loaded");

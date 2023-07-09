@@ -5,7 +5,7 @@ export default class TokenHUD {
     static async addButton(
         token,
         hudHtml,
-        toggleName
+        toggleName,
     ) {
         let state = token.nameState;
         let tbutton = $(BUTTON_HTML);

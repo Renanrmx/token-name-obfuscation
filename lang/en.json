@@ -1,0 +1,9 @@
+{
+    "I18N.LANGUAGE": "English",
+    "I18N.MAINTAINERS": ["itastelikelove"],
+
+    "tno.defaultPlaceholder.name": "Placeholder name",
+    "tno.defaultPlaceholder.hint": "The placeholder name to display when hiding token names",
+    "tno.allowHUDButton.name": "Create HUD button",
+    "tno.allowHUDButton.hint": "Uncheck to avoid creating HUD button"
+}
