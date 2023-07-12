@@ -1,7 +1,7 @@
-const BUTTON_HTML = `<div class="control-icon torch"><i class="fa-solid fa-mask"></i></div>`;
+const BUTTON_HTML = `<div class="control-icon token-name-obfuscation"><i class="fa-solid fa-mask"></i></div>`;
 
 export default class TokenHUD {
-    //Add an obfuscator button to the Token HUD - called from TokenHUD render hook
+    //Add a name obfuscation button to the Token HUD - called from renderTokenHUD hook
     static async addButton(
         token,
         hudHtml,

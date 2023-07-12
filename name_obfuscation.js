@@ -1,4 +1,3 @@
-// import Settings from "./settings.js";
 import Settings from "./settings.js";
 import TokenHUD from "./hud.js";
 import ObfuscatorToken from "./token.js";
@@ -12,7 +11,7 @@ import ObfuscatorToken from "./token.js";
  * ----------------------------------------------------------------------------
  */
 
-let DEBUG = true;
+let DEBUG = false;
 
 let debugLog = (...args) => {
   if (DEBUG) {
@@ -25,11 +24,12 @@ class Obfuscator {
     * Add a name obfuscator button to the Token HUD - called from TokenHUD render hook
     */
     static async addObfuscatorButton(hud, hudHtml, hudData) {
-
-        let token = new ObfuscatorToken(hud.object.document);
-
         // Only allow GM
         if (!game.user.isGM) return;
+        // Only allow non-player-owned tokens
+        if (hud.object.actor.hasPlayerOwner && !Settings.allowPlayerOwned) return;
+
+        let token = new ObfuscatorToken(hud.object.document);
 
         // Set up HUD button
         TokenHUD.addButton(
@@ -39,39 +39,39 @@ class Obfuscator {
         );
     }
 
+    //Toggle obfuscation state and name for token that spawned HUD button
+    //Called from token HUD button
     static async toggleName(token) {
         let newState = await token.advanceState();
+        debugLog(`TNO | toggleName() | Setting obfuscation to \'${newState}\' for selected tokens`);
         if (canvas.tokens.controlled.length > 1) {
-            Obfuscator.toggleGroup(newState)
+            console.log("token._token._id:", token._token._id)
+            Obfuscator.toggleGroup(newState);
         }
-        debugLog(`Obfuscation is now ${newState} for selected tokens`);
     }
 
+    //Set state and name for all selected tokens to the new state for the token that spawned HUD button
     static async toggleGroup(newState) {
         let i = 0;
         while (i < canvas.tokens.controlled.length) {
+            // Skip obfuscation for player-owned tokens unless explicitly alllowed
+            if (canvas.tokens.controlled[i].actor.hasPlayerOwner && !Settings.allowPlayerOwned) {
+                i++;
+                continue;
+            }
+
             let tokenData = canvas.tokens.controlled[i].document;
             let token = new ObfuscatorToken(tokenData);
+            // Don't re-obfuscate tokens already in the target state
+            if (token.nameState === newState) {
+                i++;
+                continue;
+            }
+
             await token.setState(newState);
             i++;
         }
     }
-
-//   static setupQuenchTesting() {
-//     console.log("Torch | --- In test environment - load test code...");
-//     import("./test/test-hook.js")
-//       .then((obj) => {
-//         try {
-//           obj.hookTests();
-//           console.log("Torch | --- Tests ready");
-//         } catch (err) {
-//           console.log("Torch | --- Error registering test code", err);
-//         }
-//       })
-//       .catch((err) => {
-//         console.log("Torch | --- No test code found", err);
-//       });
-//   }
 }
 
 Hooks.on("ready", () => {
@@ -80,18 +80,11 @@ Hooks.on("ready", () => {
             Obfuscator.addObfuscatorButton(app, html, data);
         }
     });
-//   Hooks.on("renderControlsReference", (app, html, data) => {
-//     html.find("div").first().append(Settings.helpText);
-//   });
 });
 
 Hooks.once("init", () => {
-  // Only load and initialize test suite if we're in a test environment
-//   if (game.world.id.startsWith("torch-test-")) {
-//     Torch.setupQuenchTesting();
-//   }
   Settings.register();
-  console.log("Token Name Obfuscation settings registered");
+  debugLog("TNO | Token Name Obfuscation settings registered");
 });
 
-console.log("Token Name Obfuscation module loaded");
+console.log("TNO | Token Name Obfuscation module loaded");
