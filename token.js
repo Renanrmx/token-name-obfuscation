@@ -1,6 +1,6 @@
 import Settings from "./settings.js";
 
-let DEBUG = true;
+let DEBUG = false;
 
 const debugLog = (...args) => {
     if (DEBUG) {
@@ -24,14 +24,16 @@ export default class ObfuscatorToken {
 
     async advanceState() {
         let state = this.nameState;
-        state = state === this.STATE_OFF ? this.STATE_ON : this.STATE_OFF;
+        state = state === this.STATE_ON ? this.STATE_OFF : this.STATE_ON;
 
+        debugLog("TNO | advanceState() | Setting obfuscation state to", state)
         await this._token.setFlag("token-name-obfuscation", "nameState", state);
         await this._handleObfuscation(state);
         return state;
     }
 
     async setState(state) {
+        debugLog("TNO | setState() | Setting obfuscation state to", state)
         await this._token.setFlag("token-name-obfuscation", "nameState", state);
         await this._handleObfuscation(state);
     }
@@ -52,15 +54,24 @@ export default class ObfuscatorToken {
     }
 
     async _turnOffObfuscation() {
-        let baseName = game.actors.get(this._token.actorId).name;
-        let update = {_id: this._token.actorId, name: baseName}
+        let newName = getNameWithAffixes(this._token.name, Settings.placeholderName, game.actors.get(this._token.actorId).name)
+        debugLog("TNO | _turnOffObfuscation() | Setting token name to", newName)
+        let update = {_id: this._token.actorId, name: newName}
         await this._token.update(update);
     }
 
     async _turnOnObfuscation() {
-        let placeholderName = Settings.placeholderName;
-        let update = {_id: this._token.actorId, name: placeholderName}
+        let newName = getNameWithAffixes(this._token.name, game.actors.get(this._token.actorId).name, Settings.placeholderName)
+        debugLog("TNO | _turnOnObfuscation() | Setting token name to", newName)
+        let update = {_id: this._token.actorId, name: newName}
         await this._token.update(update);
     }
+}
 
+function getNameWithAffixes(actualName, expectedName, newName) {
+    if (Settings.allowPreserveAffixes && actualName.length > expectedName.length && actualName.includes(expectedName)) {
+        let affixes = actualName.split(expectedName)
+        return affixes[0] + newName + affixes[1]
+    }
+    return newName
 }
