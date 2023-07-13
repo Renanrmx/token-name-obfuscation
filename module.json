@@ -26,6 +26,8 @@
   "esmodules": [
     "name_obfuscation.js"
   ],
+  "manifest": "https://raw.githubusercontent.com/itastelikelove/token-name-obfuscation/main/module.json",
+  "download": "https://raw.githubusercontent.com/itastelikelove/token-name-obfuscation/main/tno.zip",
   "url": "https://github.com/itastelikelove/token-name-obfuscation",
   "packs": [
     {
