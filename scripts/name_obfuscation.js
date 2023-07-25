@@ -54,7 +54,7 @@ class Obfuscator {
 
     //Set state and name for all selected tokens to the new state for the token that spawned HUD button
     static async toggleGroup(newState) {
-        for (tokenData of canvas.tokens.controlled) {
+        for (let tokenData of canvas.tokens.controlled) {
             // Skip obfuscation for player-owned tokens unless explicitly allowed
             if (tokenData.actor.hasPlayerOwner && !Settings.allowPlayerOwned) {
                 continue;
@@ -75,7 +75,7 @@ class Obfuscator {
 
     //Set state and name for all duplicates of a token that was just toggled
     static async toggleDuplicates(actorName, newState) {
-        for (tokenData of game.scenes.active.tokens.contents) {
+        for (let tokenData of game.scenes.active.tokens.contents) {
             // Ignore tokens from different actors
             if (tokenData.actor.name !== actorName) {
                 continue;

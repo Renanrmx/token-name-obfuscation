@@ -16,7 +16,7 @@ let initiateWith = async function(name, assert) {
 
 let initiateWithGroup = async function(name, assert) {
     let foundryTokens = [];
-    for (tokenData of game.scenes.active.tokens.contents) {
+    for (let tokenData of game.scenes.active.tokens.contents) {
         if (tokenData.actor.name === name) {
             foundryTokens.push(tokenData);
         };
