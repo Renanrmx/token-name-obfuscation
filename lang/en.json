@@ -2,6 +2,7 @@
     "I18N.LANGUAGE": "English",
     "I18N.MAINTAINERS": ["itastelikelove"],
 
+    "tno.tooltip": "Toggle token name",
     "tno.defaultPlaceholder.name": "Placeholder name",
     "tno.defaultPlaceholder.hint": "The placeholder name to display when hiding token names (PLEASE NOTE: changing this value can sometimes result in adding unintentional prefixes/suffixes if the Preserve Affixes option is on)",
     "tno.allowHUDButton.name": "Create HUD button",
@@ -9,5 +10,7 @@
     "tno.allowPlayerOwned.name": "Allow Player tokens",
     "tno.allowPlayerOwned.hint": "Check to allow obfuscation on player-owned tokens",
     "tno.allowPreserveAffixes.name": "Preserve Affixes",
-    "tno.allowPreserveAffixes.hint": "Uncheck to ignore prefixes/suffixes and only use basic actor/placeholder names"
+    "tno.allowPreserveAffixes.hint": "Uncheck to ignore prefixes/suffixes and only use basic actor/placeholder names",
+    "tno.keepDuplicatesInSync.name": "Keep Duplicates in Sync",
+    "tno.keepDuplicatesInSync.hint": "Uncheck to update all tokens with the same actor when turning obfuscation on/off"
 }
