@@ -5,7 +5,7 @@
   "compatibility": {
     "minimum": "11",
     "verified": "11",
-    "maximum": "11"
+    "maximum": "12"
   },
   "description": "A quick method to switch the displayed names of tokens between real names and placeholders",
   "authors": [
